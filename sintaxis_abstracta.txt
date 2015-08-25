@@ -1,0 +1,21 @@
+<intexp> ::= <nat> | <var> | −u <intexp>
+         | <intexp>  +  <intexp>
+         | <intexp>  −b <intexp>
+         | <intexp>  ×  <intexp>
+         | <intexp>  ÷  <intexp>
+         | <boolexp> ?  <intexp> : <intexp>
+
+<boolexp> ::= true | false
+          |   <intexp>  = <intexp>
+          |   <intexp>  < <intexp>
+          |   <intexp>  > <intexp>
+          |   <boolexp> ∧ <boolexp>
+          |   <boolexp> ∨ <boolexp>
+          | ¬ <boolexp>
+
+<comm> ::= skip
+      | <var>  :=  <intexp>
+      | <comm>  ;  <comm>
+      | if    <boolexp> then <comm> else <comm>
+      | while <boolexp> do   <comm>
+

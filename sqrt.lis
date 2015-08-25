@@ -1,0 +1,11 @@
+n := 25;
+i := 0;
+t := i * i;
+while ~ (t = n) do
+	t := i * i;
+	if ~ (t = n) then
+		i := i + 1
+	else
+		skip
+	end
+end

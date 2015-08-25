@@ -1,0 +1,33 @@
+<digit>  ::= ’0’ | ’1’ | ... | ’9’
+
+<letter> ::= ’a’ | ... | ’Z’
+
+<nat>    ::= <digit>  | <digit>  <nat>
+
+<var>    ::= <letter> | <letter> <var>
+
+<intexp> ::=  <nat>
+        |     <var>
+        | ’-’ <intexp>
+        |     <intexp>  ’+’ <intexp>
+        |     <intexp>  ’-’ <intexp>
+        |     <intexp>  ’*’ <intexp>
+        |     <intexp>  ’/’ <intexp>
+        |     <boolexp> '?' <intexp> ':' <intexp>
+        | ’(’ <intexp>  ’)’
+
+<boolexp> ::= ’true’ | ’false’
+        |     <intexp>  ’=’ <intexp>
+        |     <intexp>  ’<’ <intexp>
+        |     <intexp>  ’>’ <intexp>
+        |     <boolexp> ’&’ <boolexp>
+        |     <boolexp> ’|’ <boolexp>
+        | ’(’ <boolexp> ’)’
+        | ’~’ <boolexp>
+
+<comm> ::= ’skip’
+        |  <var>  ’:=’ <intexp>
+        |  <comm> ’;’  <comm>
+        |  ’if’    <boolexp> ’then’ <comm> ’else’ <comm>
+        |  ’while’ <boolexp> ’do’   <comm> ’end’
+

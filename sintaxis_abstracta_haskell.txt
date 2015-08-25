@@ -1,0 +1,24 @@
+data IntExp = Const Int
+	    | Var    Variable
+	    | UMinus IntExp
+	    | Plus   IntExp  IntExp
+	    | Minus  IntExp  IntExp
+	    | Times  IntExp  IntExp
+	    | Div    IntExp  IntExp
+      | IfAss  BoolExp IntExp IntExp
+
+
+data BoolExp = BTrue | BFalse
+	     | Eq  IntExp  IntExp
+	     | Lt  IntExp  IntExp
+	     | Gt  IntExp  IntExp
+	     | And BoolExp BoolExp
+	     | Or  BoolExp BoolExp
+	     | Not BoolExp
+
+data Comm = Skip
+	  | Let   Variable IntExp
+	  | Seq   Comm     Comm
+	  | Cond  BoolExp  Comm Comm
+	  | While BoolExp  Comm
+
