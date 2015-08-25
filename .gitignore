@@ -1,0 +1,6 @@
+# Ignore main executable
+Main
+
+# Ignore .o and .hi
+*.o
+*.hi
