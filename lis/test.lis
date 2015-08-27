@@ -1,3 +1,7 @@
-while true do
-	skip
+x := 5+8;
+y := 2;
+if x=13 then
+    x:= x*y
+else
+    y:= 0
 end

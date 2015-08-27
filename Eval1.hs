@@ -32,19 +32,35 @@ eval p = evalComm p initState
 -- Evalua un comando en un estado dado
 -- Completar definicion
 evalComm :: Comm -> State -> State
-evalComm c state = case c 
-                   of Skip                  -> error "Skip!"
-                      Let var iexp          -> error "Let!"
-                      Seq comm1 comm2       -> error "Seq!"
-                      Cond cond commT commF -> error "Cond!"
-                      While cond comm       -> error "While!"
+evalComm comm s = 
+    case comm 
+    of Skip             -> s 
+       Let   var  ie    -> update var (evalIntExp ie s) s 
+       Seq   c1   c2    -> let s' = evalComm c1 s in evalComm c2 s'
+       Cond  cond cT cF -> if evalBoolExp cond s then evalComm cT s else evalComm cF s
+       While cond c     -> if evalBoolExp cond s then evalComm (Seq c (While cond c)) s else s
 
 -- Evalua una expresion entera, sin efectos laterales
--- Completar definicion
 evalIntExp :: IntExp -> State -> Int
-evalIntExp = undefined
+evalIntExp e s =
+    case e 
+    of Const  int     -> int
+       Var    var     -> lookfor var s
+       UMinus ie      -> -(evalIntExp ie s)
+       Plus   ie1 ie2 -> (evalIntExp ie1 s)   +   (evalIntExp ie2 s)
+       Minus  ie1 ie2 -> (evalIntExp ie1 s)   -   (evalIntExp ie2 s)
+       Times  ie1 ie2 -> (evalIntExp ie1 s)   *   (evalIntExp ie2 s)
+       Div    ie1 ie2 -> (evalIntExp ie1 s) `div` (evalIntExp ie2 s)
 
 -- Evalua una expresion entera, sin efectos laterales
--- Completar definicion
 evalBoolExp :: BoolExp -> State -> Bool
-evalBoolExp = undefined
+evalBoolExp e s =
+    case e
+    of BFalse      -> False
+       BTrue       -> True
+       Eq  ie1 ie2 -> (evalIntExp ie1 s)  == (evalIntExp ie2 s)
+       Lt  ie1 ie2 -> (evalIntExp ie1 s)  <  (evalIntExp ie2 s)
+       Gt  ie1 ie2 -> (evalIntExp ie1 s)  >  (evalIntExp ie2 s)
+       And be1 be2 -> (evalBoolExp be1 s) && (evalBoolExp be2 s)
+       Or  be1 be2 -> (evalBoolExp be1 s) || (evalBoolExp be2 s)
+       Not be      ->  not (evalBoolExp be s)
