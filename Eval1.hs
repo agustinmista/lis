@@ -10,7 +10,7 @@ type State = [(Variable, Int)]
 initState :: State
 initState = []
 
--- Busca el valor de una variabl en un estado
+-- Busca el valor de una variable en un estado
 lookfor :: Variable -> State -> Int
 lookfor v [] = error "Var not in scope"
 lookfor v (x:xs) = if v == fst x
@@ -18,7 +18,6 @@ lookfor v (x:xs) = if v == fst x
                    else lookfor v xs
 
 -- Cambia el valor de una variable en un estado
--- (Si la variable no existe la agrega al final) CONSULTAR!
 update :: Variable -> Int -> State -> State
 update v i [] = [(v,i)]
 update v i (x:xs) = if v == fst x
@@ -30,7 +29,6 @@ eval :: Comm -> State
 eval p = evalComm p initState
 
 -- Evalua un comando en un estado dado
--- Completar definicion
 evalComm :: Comm -> State -> State
 evalComm comm s = 
     case comm 
@@ -52,7 +50,7 @@ evalIntExp e s =
        Times  ie1 ie2 -> (evalIntExp ie1 s)   *   (evalIntExp ie2 s)
        Div    ie1 ie2 -> (evalIntExp ie1 s) `div` (evalIntExp ie2 s)
 
--- Evalua una expresion entera, sin efectos laterales
+-- Evalua una expresion booleana, sin efectos laterales
 evalBoolExp :: BoolExp -> State -> Bool
 evalBoolExp e s =
     case e
