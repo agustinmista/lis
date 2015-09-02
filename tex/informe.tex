@@ -101,7 +101,7 @@
 		&| &&\bm{`(`}\;\langle intexp \rangle\;\bm{`)`}\\
 		&| &&\langle boolexp \rangle\;\bm{`?`}\;\langle intexp \rangle\;\bm{`:`}\; \langle intexp \rangle \\
 	\end{alignat*}
-\\
+	\\
 %----------------------------------------------------------
 \subsection*{Ejercicio 2.3.1.}
 	\emph{Extendemos la sintaxis abstracta de las expresiones enteras en Haskell para incluir el operador de asignación ternario descripto en el Ejercicio 2.2.1.}
@@ -130,12 +130,91 @@
 \pagebreak
 %----------------------------------------------------------
 \subsection*{Ejercicio 2.5.1.}
-	\emph{Demostrar que la relación de evaluación de un paso $\rightsquigarrow$ es determinista}
-	\\
-	\begin{align*}
-		Blah,\;blah,\;blah..
+	\emph{Para demostrar que la relación de evaluación de un paso $\rightsquigarrow$ es determinista, debemos probar que si:
+	\begin{align*} 
+		t \rightsquigarrow t'  \quad \text{y} \quad 
+		t \rightsquigarrow t'' \quad \text{entonces}  
+		\quad t' = t'' 
 	\end{align*}
-\\
+	Para esto, hacemos inducción estructural sobre la estructura de $\rightsquigarrow$}
+	\\
+	\\
+	\underline{\bf Casos Base:}
+	\begin{itemize}
+		\item La última regla aplicada para $t \rightsquigarrow t'$ fue {\bf ASS}, entonces tenemos que:
+				\begin{align*} t = \langle v:=e \;|\; \sigma\rangle \end{align*}
+			y resulta, por la forma de t, que no se puede haber aplicado ninguna otra regla para $t \rightsquigarrow t''$ por lo que se concluye que $t'= t''$.
+			\\
+		\item La última regla aplicada para $t \rightsquigarrow t'$ fue {\bf SKIP}, entonces tenemos que:
+				\begin{align*} t = \langle \textbf{skip} \;|\; \sigma\rangle \end{align*}
+			y resulta, por la forma de t, que no se puede haber aplicado ninguna otra regla para $t \rightsquigarrow t''$ por lo que se concluye que $t'= t''$.
+			\\
+		\item La última regla aplicada para $t \rightsquigarrow t'$ fue ${\bf IF_{1}}$, entonces tenemos que:
+				\begin{align*} t = \langle \textbf{if}\; b \;\textbf{then}\; c_{0} \;\textbf{else}\; c_{1} \;|\; \sigma\rangle \end{align*}
+			y se tiene por hipótesis que: 
+				\begin{align*} [\![b]\!]_{boolexp}\sigma = \textbf{true} \end{align*}
+			Luego, resulta por la forma de t, que para $t \rightsquigarrow t''$ sólo se pueden haber aplicado ${\bf IF_{1}}$ o bien ${\bf IF_{2}}$.
+			Si se hubiera aplicado ${\bf IF_{2}}$ entonces tenemos que:
+				\begin{align*} [\![b]\!]_{boolexp}\sigma = \textbf{false} \end{align*}
+			lo que contradice nuestra hipótesis, por ende, en $t' \rightsquigarrow t''$ sólo se puede haber aplicado ${\bf IF_{1}}$, concluyendo que $t'= t''$.
+			\\
+		\item La última regla aplicada para $t \rightsquigarrow t'$ fue ${\bf IF_{2}}$, entonces tenemos que:
+				\begin{align*} t = \langle \textbf{if}\; b \;\textbf{then}\; c_{0} \;\textbf{else}\; c_{1} \;|\; \sigma\rangle \end{align*}
+			y se tiene por hipótesis que: 
+				\begin{align*} [\![b]\!]_{boolexp}\sigma = \textbf{false} \end{align*}
+			Luego, resulta por la forma de t, que para $t \rightsquigarrow t''$ sólo se pueden haber aplicado ${\bf IF_{2}}$ o bien ${\bf IF_{1}}$.
+			Si se hubiera aplicado ${\bf IF_{1}}$ entonces tenemos que:
+				\begin{align*} [\![b]\!]_{boolexp}\sigma = \textbf{true} \end{align*}
+			lo que contradice nuestra hipótesis, por ende, en $t' \rightsquigarrow t''$ sólo se puede haber aplicado ${\bf IF_{2}}$, concluyendo que $t'= t''$.
+			\\
+\pagebreak
+		\item La última regla aplicada para $t \rightsquigarrow t'$ fue ${\bf WHILE_{1}}$, entonces tenemos que:
+				\begin{align*} t = \langle \textbf{while}\; b \;\textbf{do}\; c \;|\; \sigma\rangle \end{align*}
+			y se tiene por hipótesis que:
+				\begin{align*} [\![b]\!]_{boolexp}\sigma = \textbf{true} \end{align*}
+			Luego, resulta por la forma de t, que para $t \rightsquigarrow t''$ sólo se pueden haber aplicado ${\bf WHILE_{1}}$ o bien ${\bf WHILE_{2}}$.
+			Si se hubiera aplicado ${\bf WHILE_{2}}$ entonces tenemos que:
+				\begin{align*} [\![b]\!]_{boolexp}\sigma = \textbf{false} \end{align*}
+			lo que contradice nuestra hipótesis, por ende, en $t' \rightsquigarrow t''$ sólo se puede haber aplicado ${\bf WHILE_{1}}$, concluyendo que $t'= t''$.
+			\\
+		\item La última regla aplicada para $t \rightsquigarrow t'$ fue ${\bf WHILE_{2}}$, entonces tenemos que:
+				\begin{align*} t = \langle \textbf{while}\; b \;\textbf{do}\; c \;|\; \sigma\rangle \end{align*}
+			y se tiene por hipótesis que:
+				\begin{align*} [\![b]\!]_{boolexp}\sigma = \textbf{false} \end{align*}
+			Luego, resulta por la forma de t, que para $t \rightsquigarrow t''$ sólo se pueden haber aplicado ${\bf WHILE_{2}}$ o bien ${\bf WHILE_{1}}$.
+			Si se hubiera aplicado ${\bf WHILE_{1}}$ entonces tenemos que:
+				\begin{align*} [\![b]\!]_{boolexp}\sigma = \textbf{true} \end{align*}
+			lo que contradice nuestra hipótesis, por ende, en $t' \rightsquigarrow t''$ sólo se puede haber aplicado ${\bf WHILE_{2}}$, concluyendo que $t'= t''$.
+			\\
+	\end{itemize}
+	\underline{\bf Paso Inductivo:}
+	\begin{itemize}
+		\item Supongo que la última regla aplicada para $t \rightsquigarrow t'$ fue ${\bf SEQ_{1}}$, entonces tenemos que:
+				\begin{align*} t = \langle c_{0} \;\textbf{;}\; c_{1} \;|\; \sigma\rangle \end{align*}
+			y tenemos por hipótesis inductiva que:
+				\begin{align*} \langle c_{0},\sigma\rangle \rightsquigarrow \sigma' \end{align*}
+			Y, de ésta podemos ver que:
+				\begin{align*} \nexists x \neq \sigma' \;{\big /}\; \langle c_{0},\sigma\rangle \rightsquigarrow x \end{align*}
+			Luego, resulta por la forma de t, que para $t \rightsquigarrow t''$ sólo se pueden haber aplicado ${\bf SEQ_{1}}$ o bien ${\bf SEQ_{2}}$.
+			Si se hubiera aplicado ${\bf SEQ_{2}}$ entonces tenemos que:
+				\begin{align*} \langle c_{0},\sigma\rangle \rightsquigarrow \langle c_{0}'',\sigma'' \rangle \end{align*}
+			lo que contradice nuestra hipótesis ($\sigma' \neq \langle c_{0}'',\sigma'' \rangle$), por ende, en $t' \rightsquigarrow t''$ sólo se puede haber aplicado ${\bf SEQ_{1}}$, concluyendo que $t'= t''$.
+			\\
+			\item Supongo que la última regla aplicada para $t \rightsquigarrow t'$ fue ${\bf SEQ_{2}}$, entonces tenemos que:
+				\begin{align*} t = \langle c_{0} \;\textbf{;}\; c_{1} \;|\; \sigma\rangle \end{align*}
+			y tenemos por hipótesis inductiva que:
+				\begin{align*} \langle c_{0},\sigma\rangle \rightsquigarrow \langle c_{1}' \;|\; \sigma' \rangle \end{align*}
+			Y, de ésta podemos ver que:
+				\begin{align*} \nexists x \neq \langle c_{1}' \;|\; \sigma' \rangle \;{\big /}\; \langle c_{0},\sigma\rangle \rightsquigarrow x \end{align*}
+			Luego, resulta por la forma de t, que para $t \rightsquigarrow t''$ sólo se pueden haber aplicado ${\bf SEQ_{2}}$ o bien ${\bf SEQ_{1}}$.
+			Si se hubiera aplicado ${\bf SEQ_{1}}$ entonces tenemos que:
+				\begin{align*} \langle c_{0},\sigma\rangle \rightsquigarrow \sigma'' \end{align*}
+			lo que contradice nuestra hipótesis ($ \langle c_{0}',\sigma' \rangle \neq \sigma''$), por ende, en $t' \rightsquigarrow t''$ sólo se puede haber aplicado ${\bf SEQ_{2}}$, concluyendo que $t'= t''$.
+	\end{itemize}
+	
+	\vspace{25pt}
+	\emph{Finalmente, podemos concluir que la relación de evaluación en un paso $\rightsquigarrow$ es determinista.}
+	\\
 %----------------------------------------------------------
 \subsection*{Ejercicio 2.5.2.}
 	\emph{Construimos un árbol de prueba para demostrar que:}
@@ -199,7 +278,7 @@
 		[\![x+1]\!][\sigma|x:0] \quad &= \quad [\![x]\!][\sigma|x:0] + [\![1]\!][\sigma|x:1] \quad &&= \quad 0+1 \quad &&= \quad {\bf 1}\\
 	  	[\![x>0]\!][\sigma|x:1] \quad &= \quad [\![x]\!][\sigma|x:1] > [\![0]\!] \quad &&= \quad 1>0 \quad &&= \quad {\bf true}
 	\end{alignat}
-\\
+	\\
 %----------------------------------------------------------
 \subsection*{Ejercicio 2.5.6.}
 	\emph{Agregamos una producción a la gramática abstracta de los comandos del LIS para el comando {\bf repeat}}
@@ -212,6 +291,7 @@
 			&|\;{\bf while}\;\langle boolexp \rangle\;{\bf do}\;\langle comm \rangle\\
 			&|\;{\bf repeat}\;\langle comm \rangle\;{\bf until}\;\langle boolexp \rangle
 	\end{alignat*}
+\pagebreak
 	\\
 	\emph{Extendemos la semántica operacional del LIS con reglas de inferencia para el comando {\bf repeat}}
 	\\
