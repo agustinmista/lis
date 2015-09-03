@@ -192,28 +192,24 @@
 		\item Supongo que la última regla aplicada para $t \rightsquigarrow t'$ fue ${\bf SEQ_{1}}$, entonces tenemos que:
 				\begin{align*} t = \langle c_{0} \;\textbf{;}\; c_{1} \;|\; \sigma\rangle \end{align*}
 			y tenemos por hipótesis inductiva que:
-				\begin{align*} \langle c_{0},\sigma\rangle \rightsquigarrow \sigma' \end{align*}
-			Y, de ésta podemos ver que:
-				\begin{align*} \nexists x \neq \sigma' \;{\big /}\; \langle c_{0},\sigma\rangle \rightsquigarrow x \end{align*}
-			Luego, resulta por la forma de t, que para $t \rightsquigarrow t''$ sólo se pueden haber aplicado ${\bf SEQ_{1}}$ o bien ${\bf SEQ_{2}}$.
+				\begin{align*} \langle c_{0},\sigma\rangle \rightsquigarrow \sigma' \quad \Rightarrow \quad \nexists x \neq \sigma' \;{\big /}\; \langle c_{0},\sigma\rangle \rightsquigarrow x \end{align*}
+			Cuyo antecedente es válido dado que es la premisa de la regla que aplicamos, por lo que podemos concluir que vale el consecuente de la misma. Luego, resulta por la forma de t, que para $t \rightsquigarrow t''$ sólo se pueden haber aplicado ${\bf SEQ_{1}}$ o bien ${\bf SEQ_{2}}$.
 			Si se hubiera aplicado ${\bf SEQ_{2}}$ entonces tenemos que:
 				\begin{align*} \langle c_{0},\sigma\rangle \rightsquigarrow \langle c_{0}'',\sigma'' \rangle \end{align*}
-			lo que contradice nuestra hipótesis ($\sigma' \neq \langle c_{0}'',\sigma'' \rangle$), por ende, en $t' \rightsquigarrow t''$ sólo se puede haber aplicado ${\bf SEQ_{1}}$, concluyendo que $t'= t''$.
+			lo que contradice el consecuente de nuestra hipótesis ($\sigma' \neq \langle c_{0}'',\sigma'' \rangle$), por ende, en $t' \rightsquigarrow t''$ sólo se puede haber aplicado ${\bf SEQ_{1}}$, concluyendo que $t'= t''$.
 			\\
 			\item Supongo que la última regla aplicada para $t \rightsquigarrow t'$ fue ${\bf SEQ_{2}}$, entonces tenemos que:
 				\begin{align*} t = \langle c_{0} \;\textbf{;}\; c_{1} \;|\; \sigma\rangle \end{align*}
 			y tenemos por hipótesis inductiva que:
-				\begin{align*} \langle c_{0},\sigma\rangle \rightsquigarrow \langle c_{1}' \;|\; \sigma' \rangle \end{align*}
-			Y, de ésta podemos ver que:
-				\begin{align*} \nexists x \neq \langle c_{1}' \;|\; \sigma' \rangle \;{\big /}\; \langle c_{0},\sigma\rangle \rightsquigarrow x \end{align*}
-			Luego, resulta por la forma de t, que para $t \rightsquigarrow t''$ sólo se pueden haber aplicado ${\bf SEQ_{2}}$ o bien ${\bf SEQ_{1}}$.
+				\begin{align*} \langle c_{0},\sigma\rangle \rightsquigarrow \langle c_{1}' \;|\; \sigma' \rangle \quad \Rightarrow \quad \nexists x \neq \langle c_{1}' \;|\; \sigma' \rangle \;{\big /}\; \langle c_{0},\sigma\rangle \rightsquigarrow x \end{align*}
+			Cuyo antecedente es válido dado que es la premisa de la regla que aplicamos, por lo que podemos concluir que vale el consecuente de la misma. Luego, resulta por la forma de t, que para $t \rightsquigarrow t''$ sólo se pueden haber aplicado ${\bf SEQ_{2}}$ o bien ${\bf SEQ_{1}}$.
 			Si se hubiera aplicado ${\bf SEQ_{1}}$ entonces tenemos que:
 				\begin{align*} \langle c_{0},\sigma\rangle \rightsquigarrow \sigma'' \end{align*}
-			lo que contradice nuestra hipótesis ($ \langle c_{0}',\sigma' \rangle \neq \sigma''$), por ende, en $t' \rightsquigarrow t''$ sólo se puede haber aplicado ${\bf SEQ_{2}}$, concluyendo que $t'= t''$.
+			lo que contradice el consecuente de nuestra hipótesis ($ \langle c_{0}',\sigma' \rangle \neq \sigma''$), por ende, en $t' \rightsquigarrow t''$ sólo se puede haber aplicado ${\bf SEQ_{2}}$, concluyendo que $t'= t''$.
 	\end{itemize}
 	
-	\vspace{25pt}
-	\emph{Finalmente, podemos concluir que la relación de evaluación en un paso $\rightsquigarrow$ es determinista.}
+	\vspace{5pt}
+	\emph{Finalmente, podemos concluir que \textbf{la relación de evaluación en un paso $\rightsquigarrow$ es determinista.}}
 	\\
 %----------------------------------------------------------
 \subsection*{Ejercicio 2.5.2.}
